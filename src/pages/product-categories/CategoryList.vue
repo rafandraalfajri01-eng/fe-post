@@ -72,7 +72,7 @@ onMounted(() => {
       </div>
 
       <Button asChild v-slot="slotProps">
-        <RouterLink :to="{ name: 'product-categories.create' }" :class="slotProps?.class">
+        <RouterLink :to="{ name: 'product-categories-create' }" :class="slotProps?.class">
           Add Category
         </RouterLink>
       </Button>
@@ -106,6 +106,11 @@ onMounted(() => {
         <Column header="Actions" style="width: 5rem">
           <template #body="{ data }">
             <div class="flex items-center gap-2">
+              <RouterLink :to="{ name: 'product-categories-edit', params: { id: data.id } }">
+                <Button icon="pi pi-pencil" text rounded severity="primary"
+                  class="w-9! h-9! border-surface-200! text-surface-200! hover:text-primary-600! hover:border-primary-600!" />
+              </RouterLink>
+
               <Button icon="pi pi-trash" text rounded severity="danger"
                 class="w-9! h-9! border-surface-200! text-surface-200! hover:text-primary-600"
                 @click="confirmDelete(data.id)" />
