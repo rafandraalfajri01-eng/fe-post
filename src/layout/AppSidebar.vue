@@ -20,9 +20,15 @@ const route = useRoute();
 
 const menuItems = ref([
   {
-    label: 'General',
+    label: "General",
     items: [
-      { icon: 'pi pi-th-large', to: '/', label: 'Dashboard' }
+      { icon: "pi pi-th-large", to: "/", label: "Dashboard" }
+    ]
+  },
+  {
+    label: "Management",
+    items: [
+      { icon: "pi pi-tag", to: "/product-categories", label: "Product Categories" }
     ]
   }
 ])
@@ -30,7 +36,7 @@ const menuItems = ref([
 
 <template>
   <div
-    class="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col z-50 transition-all duration-300"
+    class="fixed left-0 top-0 h-full w-64 bg-white border-r border-surface-200 flex flex-col z-50 transition-all duration-300"
   >
     <!-- logo -->
     <div class="h-20 flex items-center px-8 border-b border-gray-100">
