@@ -1,8 +1,22 @@
 <script setup>
-import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import router from '@/router';
+import { useAuthStore } from '@/stores/auth.store';
+import { Button, Dialog } from 'primevue';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-const route = useRoute()
+const authStore = useAuthStore()
+const { user } = authStore
+
+const logoutDialog = ref(false)
+
+const handleLogout = async () => {
+  await authStore.logout()
+  logoutDialog.value = false
+  router.push({ name: 'login' })
+}
+
+const route = useRoute();
 
 const menuItems = ref([
   {
@@ -35,8 +49,8 @@ const menuItems = ref([
 
         <div class="flex flex-col gap-1">
           <router-link
-            v-for="(item, j) in section.items"
-            :key="`${section.label}-${j}`"
+            v-for="(item, i) in section.items"
+            :key="`${section.label}-${i}`"
             :to="item.to"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors duration-200"
             :class="route.path === item.to
@@ -51,25 +65,33 @@ const menuItems = ref([
     </div>
 
     <!-- User Profile -->
-    <div class="p-4 border-t border-gray-200">
-      <div class="group w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50">
+    <div class="p-4 border-t border-surface-200">
+      <button @click="logoutDialog = true" class="group w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50">
         <div class="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
           <i class="pi pi-user text-lg text-gray-600"></i>
         </div>
 
         <div class="text-left">
           <div class="text-sm font-semibold text-gray-900">
-            Rafandra
+            {{ user?.name }}
           </div>
           <div class="text-xs text-gray-500">
-            Rafandra@bwa.com
+            {{ user?.email }}
           </div>
         </div>
 
         <div class="ml-auto w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 group-hover:bg-red-50">
           <i class="pi pi-sign-out text-lg"></i>
         </div>
-      </div>
+      </button>
     </div>
   </div>
+
+  <Dialog v-model:visible="logoutDialog" header="Confirm Logout" :modal="true">
+    <span class="text-surface-500 block mb-8">Are u sure to logout?</span>
+    <div class="flex justfy-end gap-2">
+      <Button type="button" label="Cancel" severity="secondary" @click="logoutDialog = false" />
+      <Button type="button" label="Logout" severity="danger" @click="handleLogout" />
+    </div>
+  </Dialog>
 </template>
