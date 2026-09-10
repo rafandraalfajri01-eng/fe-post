@@ -28,7 +28,8 @@ const menuItems = ref([
   {
     label: "Management",
     items: [
-      { icon: "pi pi-tag", to: "/product-categories", label: "Product Categories" }
+      { icon: "pi pi-tag", to: "/product-categories", label: "Product Categories" },
+      { icon: "pi pi-box", to: "/products", label: "Products" }
     ]
   }
 ])
@@ -59,7 +60,7 @@ const menuItems = ref([
             :key="`${section.label}-${i}`"
             :to="item.to"
             class="flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors duration-200"
-            :class="route.path === item.to
+            :class="(item.to === '/' ? route.path === '/' : route.path.startsWith(item.to))
               ? 'bg-gray-100 text-emerald-600'
               : 'text-gray-900 hover:bg-gray-100'"
           >
