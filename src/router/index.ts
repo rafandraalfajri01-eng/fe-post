@@ -9,6 +9,7 @@ import CustomerList from '@/pages/customers/CustomerList.vue'
 import CustomerForm from '@/pages/customers/CustomerForm.vue'
 import TransactionList from '@/pages/transactions/TransactionList.vue'
 import TransactionDetail from '@/pages/transactions/TransactionDetail.vue'
+import POSView from '@/pages/pos/PosView.vue'
 import { useAuthStore } from '@/stores/auth.store'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -85,6 +86,11 @@ const router = createRouter({
           path: '/transactions/:id',
           name: 'transactions-detail',
           component: TransactionDetail
+        },
+        {
+          path: '/pos',
+          name: 'pos',
+          component: POSView
         }
       ]
     }

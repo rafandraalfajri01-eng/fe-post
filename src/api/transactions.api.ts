@@ -8,4 +8,10 @@ export const getTransactions = (params?: {
 
 export const getTransaction = (id: number) => api.get(`/transactions/${id}`)
 
+export const createTransaction = (payload: {
+    customer_id: number,
+    tax?: number,
+    items: { product_id: number, quantity: number }[]
+}) => api.post('/transactions', payload)
+
 export const deleteTransaction = (id: number) => api.delete(`/transactions/${id}`)
